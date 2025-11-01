@@ -1,0 +1,17 @@
+# VS Code extension ignore file
+.vscode/**
+.vscode-test/**
+src/**
+.gitignore
+.yarnrc
+vsc-extension-quickstart.md
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+**/*.ts
+.github/**
+
+# Exclude dev dependencies but keep runtime dependencies
+node_modules/@types/**
+node_modules/@vscode/**
+node_modules/typescript/**

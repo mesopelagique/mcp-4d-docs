@@ -1,0 +1,83 @@
+{
+  "name": "mcp-4d-docs",
+  "version": "0.1.0",
+  "displayName": "4D Documentation Viewer",
+  "description": "Browse 4D command documentation with MCP server support",
+  "publisher": "mesopelagique",
+  "icon": "logo.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./build/extension.js",
+  "bin": {
+    "mcp-4d-docs": "./build/index.js"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "4d-docs.openInBrowser",
+        "title": "4D: Open Command Documentation in Browser"
+      },
+      {
+        "command": "4d-docs.openInWebview",
+        "title": "4D: Open Command Documentation in Editor"
+      },
+      {
+        "command": "4d-docs.test",
+        "title": "4D: Test Extension"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "4d-docs.openInBrowser",
+          "group": "4d-docs@1"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "4d-docs.openInWebview",
+          "group": "4d-docs@2"
+        }
+      ]
+    },
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "4d-docs",
+        "label": "4D Documentation"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "package": "vsce package",
+    "prepare": "npm run build"
+  },
+  "keywords": ["mcp", "4d", "documentation", "vscode-extension"],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mesopelagique/mcp-4d-docs.git"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "cheerio": "^1.0.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.3.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ],
+      "preLaunchTask": "${defaultBuildTask}"
+    },
+    {
+      "name": "Run MCP Server",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/index.js",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}
