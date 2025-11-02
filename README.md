@@ -306,3 +306,9 @@ MIT
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues or pull requests.
+
+- [ ] If the remote CSS doesn’t exist (for instance, if it was renamed), consider embedding one in the plugin.  
+- [ ] Support 4D language highlighting (Prism?).  
+- [ ] Keep a key pressed when requesting documentation via the command palette to allow forcing a download (i.e., bypassing the cache).
+
+
