@@ -19,6 +19,7 @@ Both modes share the same caching system for improved performance.
   - Selected text
   - Word at cursor position
   - LSP/hover information
+  - Strips command numbers (e.g., `:C123` format) when getting command name
 - **Two Display Modes**:
   - Open in browser (quick external reference)
   - Open in editor webview (integrated documentation with CSS styling)

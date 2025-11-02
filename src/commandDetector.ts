@@ -1,10 +1,13 @@
 import * as vscode from "vscode";
 
 /**
- * Clean command name by removing parentheses and arguments
+ * Clean command name by removing parentheses and arguments, and stripping command numbers
  * Examples:
  *   "CHANGE LICENSES()" -> "CHANGE LICENSES"
  *   "CHANGE LICENSES(arg1; arg2)" -> "CHANGE LICENSES"
+ *   ":C123" -> "" (command number only, no name)
+ *   "ALERT:C41" -> "ALERT"
+ *   "WEB SEND FILE:C610" -> "WEB SEND FILE"
  *   "QUERY" -> "QUERY"
  */
 function cleanCommandName(text: string): string {
@@ -13,7 +16,11 @@ function cleanCommandName(text: string): string {
   if (parenIndex !== -1) {
     text = text.substring(0, parenIndex);
   }
-  
+
+  // Strip command number format (:Cxxx)
+  // Match :C followed by one or more digits at the end of the string
+  text = text.replace(/:C\d+$/i, '');
+
   return text.trim();
 }
 
