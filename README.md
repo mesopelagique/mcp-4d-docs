@@ -98,7 +98,6 @@ Add to your MCP client configuration (e.g., Claude Desktop):
 For VS Code, add to `.vscode/mcp.json`:
 
 ```json
-```json
 {
   "mcpServers": {
     "4d-docs": {
