@@ -1,17 +1,41 @@
 # VS Code extension ignore file
+
+# Source files and build configs
 .vscode/**
 .vscode-test/**
 src/**
+tsconfig.json
+tsconfig.mcp.json
+esbuild.js
+
+# Git and GitHub
+.git/**
 .gitignore
-.yarnrc
-vsc-extension-quickstart.md
-**/tsconfig.json
-**/.eslintrc.json
-**/*.map
-**/*.ts
+.gitattributes
 .github/**
 
-# Exclude dev dependencies but keep runtime dependencies
-node_modules/@types/**
-node_modules/@vscode/**
-node_modules/typescript/**
+# Build artifacts (keep dist/ for bundled files)
+build/**
+**/*.map
+
+# Development files
+.DS_Store
+.claude/**
+test-*.md
+test-*.html
+TEST.md
+vsc-extension-quickstart.md
+QUICKSTART.md
+
+# Dependencies - we bundle everything, so exclude all node_modules
+node_modules/**
+
+# NPM
+.npmrc
+.yarnrc
+package-lock.json
+npm-debug.log
+
+# Linting and formatting
+.eslintrc.json
+.prettierrc

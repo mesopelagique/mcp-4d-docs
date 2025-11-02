@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .token.keyword { color: blue; font-weight: bold; }
+    .token.string { color: red; }
+    .token.comment { color: gray; font-style: italic; opacity: 0.7; }
+    .token.number { color: teal; }
+    .token.operator { color: purple; }
+    .token.punctuation { color: #393A34; }
+  </style>
+</head>
+<body>
+  <h1>Test 4D Syntax Highlighting</h1>
+
+  <div class="language-4d">
+    <code>
+      <span class="token-line">
+        <span class="token plain">&nbsp;&nbsp;// Object method for bLicense button</span>
+      </span>
+      <span class="token-line">
+        <span class="token plain">&nbsp;CHANGE LICENSES</span>
+      </span>
+      <span class="token-line">
+        <span class="token plain">var $name : Text&nbsp;// Name of client</span>
+      </span>
+      <span class="token-line">
+        <span class="token plain">ASSERT($name#"";"Search for a blank client name")</span>
+      </span>
+    </code>
+  </div>
+
+  <script>
+    (function() {
+      function highlightCode() {
+        const codeBlocks = document.querySelectorAll('.language-4d code');
+        console.log('Found', codeBlocks.length, '4D code blocks');
+
+        codeBlocks.forEach(function(block) {
+          const lines = block.querySelectorAll('.token-line');
+
+          lines.forEach(function(line) {
+            const plainSpans = line.querySelectorAll('.token.plain');
+
+            plainSpans.forEach(function(span) {
+              const text = span.innerHTML; // Use innerHTML to preserve &nbsp; etc
+              if (!text || text.trim() === '') return;
+
+              console.log('Processing:', text);
+
+              // Use placeholder tokens to protect matched content
+              const MARKERS = {
+                COMMENT_START: '\u0001COMMENT_START\u0001',
+                COMMENT_END: '\u0001COMMENT_END\u0001',
+                STRING_START: '\u0001STRING_START\u0001',
+                STRING_END: '\u0001STRING_END\u0001',
+                KEYWORD_START: '\u0001KEYWORD_START\u0001',
+                KEYWORD_END: '\u0001KEYWORD_END\u0001',
+                NUMBER_START: '\u0001NUMBER_START\u0001',
+                NUMBER_END: '\u0001NUMBER_END\u0001',
+                OPERATOR_START: '\u0001OPERATOR_START\u0001',
+                OPERATOR_END: '\u0001OPERATOR_END\u0001',
+                PUNCT_START: '\u0001PUNCT_START\u0001',
+                PUNCT_END: '\u0001PUNCT_END\u0001'
+              };
+
+              let highlighted = text
+                // Comments (// ...) - must come first
+                .replace(/(\/\/[^<]*)/g, MARKERS.COMMENT_START + '$1' + MARKERS.COMMENT_END)
+                // Strings (double quotes)
+                .replace(/("(?:[^"\\\\]|\\\\.)*")/g, MARKERS.STRING_START + '$1' + MARKERS.STRING_END)
+                // 4D Commands (uppercase words 3+ chars)
+                .replace(/\b([A-Z][A-Z0-9_]{2,}(?:(?:&nbsp;|\s)+[A-Z][A-Z0-9_]+)*)\b/g, MARKERS.KEYWORD_START + '$1' + MARKERS.KEYWORD_END)
+                // Numbers
+                .replace(/\b(\d+(?:\.\d+)?)\b/g, MARKERS.NUMBER_START + '$1' + MARKERS.NUMBER_END)
+                // Operators
+                .replace(/([+\-*\/:=!&|#])/g, MARKERS.OPERATOR_START + '$1' + MARKERS.OPERATOR_END)
+                // Parentheses and brackets
+                .replace(/([()[\]{}])/g, MARKERS.PUNCT_START + '$1' + MARKERS.PUNCT_END);
+
+              // Replace markers with actual HTML spans
+              highlighted = highlighted
+                .replace(new RegExp(MARKERS.COMMENT_START, 'g'), '<span class="token comment">')
+                .replace(new RegExp(MARKERS.COMMENT_END, 'g'), '</span>')
+                .replace(new RegExp(MARKERS.STRING_START, 'g'), '<span class="token string">')
+                .replace(new RegExp(MARKERS.STRING_END, 'g'), '</span>')
+                .replace(new RegExp(MARKERS.KEYWORD_START, 'g'), '<span class="token keyword">')
+                .replace(new RegExp(MARKERS.KEYWORD_END, 'g'), '</span>')
+                .replace(new RegExp(MARKERS.NUMBER_START, 'g'), '<span class="token number">')
+                .replace(new RegExp(MARKERS.NUMBER_END, 'g'), '</span>')
+                .replace(new RegExp(MARKERS.OPERATOR_START, 'g'), '<span class="token operator">')
+                .replace(new RegExp(MARKERS.OPERATOR_END, 'g'), '</span>')
+                .replace(new RegExp(MARKERS.PUNCT_START, 'g'), '<span class="token punctuation">')
+                .replace(new RegExp(MARKERS.PUNCT_END, 'g'), '</span>');
+
+              console.log('Result:', highlighted);
+              span.innerHTML = highlighted;
+            });
+          });
+        });
+        console.log('Highlighting completed');
+      }
+
+      // Run after DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', highlightCode);
+      } else {
+        highlightCode();
+      }
+    })();
+  </script>
+</body>
+</html>

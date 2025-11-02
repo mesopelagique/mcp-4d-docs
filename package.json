@@ -1,6 +1,6 @@
 {
   "name": "mcp-4d-docs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "4D Documentation Viewer",
   "description": "Browse 4D command documentation with MCP server support",
   "publisher": "mesopelagique",
@@ -15,9 +15,9 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./build/extension.js",
+  "main": "./dist/extension.js",
   "bin": {
-    "mcp-4d-docs": "./build/index.js"
+    "mcp-4d-docs": "./dist/index.js"
   },
   "contributes": {
     "commands": [
@@ -57,12 +57,17 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run build",
-    "build": "tsc",
-    "watch": "tsc --watch",
+    "build": "node esbuild.js --production",
+    "watch": "node esbuild.js --watch",
     "package": "vsce package",
     "prepare": "npm run build"
   },
-  "keywords": ["mcp", "4d", "documentation", "vscode-extension"],
+  "keywords": [
+    "mcp",
+    "4d",
+    "documentation",
+    "vscode-extension"
+  ],
   "author": "",
   "license": "MIT",
   "repository": {
@@ -77,7 +82,8 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.85.0",
-    "@vscode/vsce": "^2.22.0",
+    "@vscode/vsce": "^3.6.2",
+    "esbuild": "^0.25.12",
     "typescript": "^5.3.0"
   }
 }
